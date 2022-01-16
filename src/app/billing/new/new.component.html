@@ -1,0 +1,320 @@
+<div class="main-content">
+    <div class="container-fluid">
+    <div class="card">
+        <div class="card-header card-header-danger">
+            <h4 class="card-title">New Invoice</h4>
+            <p class="card-category">Enter invoice details</p>
+        </div>
+        <div class="card-body">
+            <form [formGroup]="billForm">
+                <div class="row">
+                    <div class="col-md-5">
+                        <!-- <mat-label>Sale</mat-label> -->
+                        <mat-radio-group aria-label="Select an option" [(ngModel)]="payment_type">
+                            <mat-radio-button value="1">Cash</mat-radio-button>
+                            <mat-radio-button value="2">Credit</mat-radio-button>
+                        </mat-radio-group>
+                    <!-- <mat-form-field class="example-full-width">
+                        
+                          
+                        <input matInput placeholder="Company (disabled)">
+                        </mat-form-field> -->
+                    </div>
+                    <div class="col-md-3">
+                        <!-- <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Username">
+                        </mat-form-field> -->
+                        <!-- <mat-form-field appearance="fill">
+                            <mat-label>Billing date</mat-label>
+                            <input matInput [matDatepicker]="picker">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field> -->
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Invoice Date</mat-label>
+                            <input matInput [matDatepicker]="picker1" formControlName="bill_date">
+                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Invoice Number" type="text" formControlName="billing_number">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <label>Billing Details</label>
+                <div class="row">
+                    <div class="col-md-4">
+                    <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Fist Name" type="text" formControlName="billing_fname">
+                    </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                    <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Last Name" type="text" formControlName="billing_lname">
+                    </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Mobile" type="text" formControlName="billing_mobile">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                    <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Adress" type="text" formControlName="billing_address">
+                    </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                    <mat-form-field class="example-full-width">
+                        <input matInput placeholder="City" type="text" formControlName="billing_city">
+                    </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                    <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Country" type="text" formControlName="billing_country">
+                    </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                    <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Postal Code" type="text" formControlName="billing_post">
+                    </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card card-plain">
+                            <div class="card-header card-header-danger">
+                                <h4 class="card-title mt-0"> Item Details</h4>
+                                <!-- <button mat-raised-button class="float-button" (click)="addNew()">Add</button>   -->
+                                <!-- <div class="row">
+                                    <div class="col-md-8">
+                                        <h4 class="card-title mt-0"> Item Details</h4>
+                                    </div>
+                                    <p class="card-category"> Item Details</p>
+                                    <div class="col-md-8">
+                                        <div >
+                                            
+                                        </div>
+                                    </div>
+                                </div> -->
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead class="">
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <!-- <th></th>
+                                            <th></th> -->
+                                            <th></th>
+                                        </thead>
+                                        <thead class="">
+                                            <th rowspan="2">
+                                                Sl.No.
+                                            </th>
+                                            <th>
+                                                Item
+                                            </th>
+                                            <th>
+                                                HSN
+                                            </th>
+                                            <th>
+                                                Unit
+                                            </th>
+                                            <th colspan="2" style="text-align: center;">
+                                                Weight
+                                            </th>
+                                            <th>
+                                                Rate
+                                            </th>
+                                            <th colspan="2" style="text-align: center;">
+                                                V.A
+                                            </th>
+                                            <!-- <th colspan="2">
+                                                Tax
+                                            </th> -->
+                                            <th>
+                                                Amount
+                                            </th>
+                                        </thead>
+                                        <thead class="">
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th>Net</th>
+                                            <th>Gross</th>
+                                            <th></th>
+                                            <th>%</th>
+                                            <th>₹</th>
+                                            <!-- <th>%</th>
+                                            <th>₹</th> -->
+                                            <th></th>
+                                        </thead>
+                                        <tbody>
+                                            <!-- <tr>
+                                                <td>
+                                                    1
+                                                </td>
+                                                <td>
+                                                    Gold Ring
+                                                </td>
+                                                <td>
+                                                    gram
+                                                </td>
+                                                <td>
+                                                    5
+                                                </td>
+                                                <td>
+                                                    2,715
+                                                </td>
+                                                <td>
+                                                    0
+                                                </td>
+                                                <td>
+                                                    0
+                                                </td>
+                                                <td>
+                                                    5
+                                                </td>
+                                                <td>
+                                                    250
+                                                </td>
+                                                <td>
+                                                    63,542
+                                                </td>
+                                            </tr> -->
+                                            <tr *ngFor="let mn of Items;let indexOfelement=index;">
+                                                <td>
+                                                    {{indexOfelement + 1}}
+                                                </td>
+                                                <td>
+                                                    {{mn.pricing.name}}
+                                                </td>
+                                                <td>
+                                                    {{mn.pricing.material.name}}
+                                                </td>
+                                                <td>
+                                                    {{mn.pricing.unit}}
+                                                </td>
+                                                <td>
+                                                    {{mn.pricing.net_wt}}
+                                                </td>
+                                                <td>
+                                                    {{mn.pricing.gross_wt}}
+                                                </td>
+                                                <td>
+                                                    {{mn.pricing.rate}}
+                                                </td>
+                                                <!-- <td>
+                                                    {{mn.discount.percentage}}
+                                                </td> -->
+                                                <td>
+                                                    {{mn.pricing.vat}}
+                                                </td>
+                                                <td>
+                                                    {{mn.pricing.vat_price}}
+                                                </td>
+                                                <!-- <td>
+                                                    {{mn.tax.percentage}}
+                                                </td>
+                                                <td>
+                                                    {{mn.tax.amount}}
+                                                </td> -->
+                                                <td>
+                                                    {{mn.pricing.amount}}
+                                                </td>
+                                                <td class="td-actions text-right">
+                                                    <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon" (click)="editItem(indexOfelement)">
+                                                        <i class="material-icons">edit</i>
+                                                    </button>
+                                                    <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon" (click)="removeItem(indexOfelement)">
+                                                        <i class="material-icons">close</i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <tr *ngFor="let st of selected_tax.split;let indexOfelement=index;">
+                                                <td>
+                                                </td>
+                                                <td>
+                                                </td>
+                                                <td>
+                                                </td>
+                                                <td>
+                                                </td>
+                                                <td>
+                                                </td>
+                                                <td>
+                                                </td>
+                                                <td>
+                                                </td>
+                                                <!-- <td>
+                                                    {{mn.discount.percentage}}
+                                                </td> -->
+                                                <td>
+                                                    {{st.name}}
+                                                </td>
+                                                <td>
+                                                    {{st.rate}} %
+                                                </td>
+                                                <!-- <td>
+                                                    {{mn.tax.percentage}}
+                                                </td>
+                                                <td>
+                                                    {{mn.tax.amount}}
+                                                </td> -->
+                                                <td>
+                                                    {{tax_amount[indexOfelement]}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>
+                                                    Total
+                                                </td>
+                                                <td></td>
+                                                <!-- <td>
+                                                    {{mn.tax.percentage}}
+                                                </td>
+                                                <td>
+                                                    {{mn.tax.amount}}
+                                                </td> -->
+                                                <td>
+                                                    {{total}}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <button mat-stroked-button color="accent" (click)="addNew()">Add Item</button>  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button mat-raised-button class="btn btn-danger pull-right" (click)="SavePDF()">Save</button>
+                <div class="clearfix"></div>
+            </form>
+        </div>
+    </div>
+    </div>
+    <div class="center" *ngIf="loading" >
+        <mat-spinner> </mat-spinner>
+    </div>
+    </div>

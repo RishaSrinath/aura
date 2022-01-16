@@ -1,0 +1,151 @@
+<h2 mat-dialog-title>Add New Item</h2>
+<mat-dialog-content class="mat-typography">
+    <form [formGroup]="itemForm" autocomplete="off" novalidate fxLayout="column wrap"
+      fxLayoutAlign="center center" fxLayoutGap="10px">
+    <div class="row">
+        <div class="col-md-4">
+        <mat-form-field class="example-full-width">
+            <input matInput placeholder="Item Name" type="text"  formControlName="name">
+            <!-- <input matInput placeholder="Item Name" type="text"  [(ngModel)]="dummyItem.name"> -->
+            <mat-error *ngIf="hasError('name', 'required')">Name is required</mat-error>
+        </mat-form-field>
+        </div>
+        <div class="col-md-4">
+        <mat-form-field class="example-full-width">
+            <!-- <input matInput placeholder="HSN" type="text" [(ngModel)]="dummyItem.hsn"> -->
+            <!-- <input matInput placeholder="Material" type="text" formControlName="material">
+            <mat-error *ngIf="hasError('material', 'required')">Material is required</mat-error> -->
+            <mat-select name="Material" placeholder="Material" formControlName="material">
+                <mat-option *ngFor="let mt of materials" [value]="mt">
+                  {{mt.name}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="hasError('material', 'required')">Material is required</mat-error>
+        </mat-form-field>
+        </div>
+        <div class="col-md-4">
+            <mat-form-field class="example-full-width">
+                <!-- <input matInput placeholder="ID" type="text" [(ngModel)]="dummyItem.id"> -->
+                <input matInput placeholder="Code" type="text" formControlName="code" [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)='optionSelected($event.option.value)'>
+                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                      {{option.code}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-error *ngIf="hasError('code', 'required')">Code is required</mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <mat-form-field class="example-full-width">
+                <!-- <input matInput placeholder="ID" type="text" [(ngModel)]="dummyItem.id"> -->
+                <input matInput placeholder="Net weight (g)" type="number" formControlName="net_wt">
+                <mat-error *ngIf="hasError('net_wt', 'required')">Net Weight is required</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-md-6">
+            <mat-form-field class="example-full-width">
+                <!-- <input matInput placeholder="ID" type="text" [(ngModel)]="dummyItem.id"> -->
+                <input matInput placeholder="Gross weight (g)" type="number" formControlName="gross_wt">
+                <mat-error *ngIf="hasError('gross_wt', 'required')">Gross Weight is required</mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Rate (₹)" type="number" formControlName="rate">
+            </mat-form-field>
+        </div>
+        <div class="col-md-6">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Price (₹)" type="number"  formControlName="price" readonly>
+                <!-- <mat-error *ngIf="hasError('vat', 'required')">VAT is required</mat-error> -->
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="VAT (%)" type="number" formControlName="vat">
+                <mat-error *ngIf="hasError('vat', 'required')">VAT is required</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-md-6">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="VAT (₹)" type="number" formControlName="vat_price" readonly>
+                <!-- <mat-error *ngIf="hasError('vat', 'required')">VAT is required</mat-error> -->
+            </mat-form-field>
+        </div>
+    </div>
+
+    <label>Stone Price</label>
+    <div class="row">
+        <div class="col-md-4">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Stone Weight" type="number" formControlName = "stone_weight" readonly>
+                <!-- <mat-error *ngIf="hasError('vat', 'required')">VAT is required</mat-error> -->
+            </mat-form-field>
+        </div>
+        <div class="col-md-4">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Rate" type="number" formControlName = "stone_rate">
+                <!-- <mat-error *ngIf="hasError('vat', 'required')">VAT is required</mat-error> -->
+            </mat-form-field>
+        </div>
+        <div class="col-md-4">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Price" type="number" formControlName = "stone_amount" readonly>
+                <!-- <mat-error *ngIf="hasError('vat', 'required')">VAT is required</mat-error> -->
+            </mat-form-field>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-md-4">
+
+        </div>
+        <div class="col-md-4">
+
+        </div>
+        <div class="col-md-4">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Amount" type="number" formControlName = "amount" readonly>
+                <!-- <mat-error *ngIf="hasError('vat', 'required')">VAT is required</mat-error> -->
+            </mat-form-field>
+        </div>
+    </div>
+    <!-- <label>Discount Details</label> -->
+    <!-- <div class="row">
+        <div class="col-md-6">
+        <mat-form-field class="example-full-width">
+            <input matInput placeholder="%" type="number" [(ngModel)]="dummyItem.discount.percentage">
+        </mat-form-field>
+        </div>
+        <div class="col-md-6">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="₹" type="number" [(ngModel)]="dummyItem.discount.amount">
+            </mat-form-field>
+        </div>
+    </div> -->
+    <!-- <label>Tax Details</label> -->
+    <!-- <div class="row">
+        <div class="col-md-6">
+        <mat-form-field class="example-full-width">
+            <input matInput placeholder="%" type="number" [(ngModel)]="dummyItem.tax.percentage">
+        </mat-form-field>
+        </div>
+        <div class="col-md-6">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="₹" type="number" [(ngModel)]="dummyItem.tax.amount">
+            </mat-form-field>
+        </div>
+    </div> -->
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <!-- <button mat-button mat-dialog-close>Cancel</button> -->
+  <button mat-button [mat-dialog-close]="{ pricing:itemForm.value, item:ornmanent, index:index}" cdkFocusInitial>Add</button>
+</mat-dialog-actions>

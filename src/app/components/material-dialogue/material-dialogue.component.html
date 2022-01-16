@@ -1,0 +1,51 @@
+<h2 mat-dialog-title>Add New Material</h2>
+<mat-dialog-content class="mat-typography">
+    <form [formGroup]="materialForm" autocomplete="off" novalidate fxLayout="column wrap"
+      fxLayoutAlign="center center" fxLayoutGap="10px">
+    <div class="row">
+        <div class="col-md-4">
+        
+        </div>
+        <div class="col-md-4">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Material" type="text"  formControlName="name">
+            </mat-form-field>
+        </div>
+        <div class="col-md-4">
+            
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+        
+        </div>
+        <div class="col-md-4">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="HSN Code" type="text"  formControlName="hsn">
+            </mat-form-field>
+        </div>
+        <div class="col-md-4">
+            
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+        
+        </div>
+        <div class="col-md-4">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Rate" type="number"  formControlName="rate">
+            </mat-form-field>
+        </div>
+        <div class="col-md-4">
+            
+        </div>
+    </div>
+    <br>
+    <br>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <!-- <button mat-button mat-dialog-close>Cancel</button> -->
+  <button mat-button [mat-dialog-close]="{ material:materialForm.value,id:id}" cdkFocusInitial>Add</button>
+</mat-dialog-actions>
