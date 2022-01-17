@@ -236,9 +236,9 @@ export class ItemDialogueComponent {
   }
 
   public confirmDialog(): void {
-    if(this.itemForm.valid){
+    // if(this.itemForm.valid){
       this.dialogRef.close({ pricing:this.itemForm.value, item:this.ornmanent, index:this.index});
-    }
+    // }
   }
 
 }
