@@ -209,7 +209,7 @@ export class ItemDialogueComponent {
   }
 
   public findVatPrice(vat, price){
-    if((vat)&&(price)){
+    if((vat || (vat == 0))&&(price || (price == 0))){
       this.itemForm.patchValue({
         vat_price: Number((( price * vat ) / 100).toFixed(2))
       })
@@ -218,9 +218,9 @@ export class ItemDialogueComponent {
   }
 
   public findStonePrice(gross_wt, net_wt, stone_rate){
-    if(gross_wt && net_wt && stone_rate){
+    if(gross_wt && net_wt && (stone_rate || (stone_rate == 0))){
       this.itemForm.patchValue({
-        stone_weight: gross_wt - net_wt,
+        stone_weight: Number((gross_wt - net_wt).toFixed(2)),
         stone_amount: Number((( gross_wt - net_wt ) * stone_rate).toFixed(2))
       })
       this.stone_price = Number((( gross_wt - net_wt ) * stone_rate).toFixed(2));
@@ -228,10 +228,16 @@ export class ItemDialogueComponent {
   }
 
   public findAmount(price, vat, stone_price){
-    if(price && vat && stone_price){
+    if(price && (vat || (vat == 0)) && (stone_price || stone_price == 0)){
       this.itemForm.patchValue({
         amount: price + vat + stone_price
       });
+    }
+  }
+
+  public confirmDialog(): void {
+    if(this.itemForm.valid){
+      this.dialogRef.close({ pricing:this.itemForm.value, item:this.ornmanent, index:this.index});
     }
   }
 
