@@ -33,10 +33,11 @@ export class BillingComponent implements AfterViewInit {
   displayedColumns: string[] = ['invoice','date', 'name', 'items', 'total'];
   dataSource = new MatTableDataSource<BillElement>([]);
   loading:boolean = true;
-
+  shop:any;
 
   constructor(private router: Router, private billService:BillingService) {
-    
+    let shop_details:any = JSON.parse(sessionStorage.getItem('user_details'));
+    this.shop = shop_details[0].shop;
   }
 
   ngAfterViewInit() {
@@ -77,7 +78,7 @@ export class BillingComponent implements AfterViewInit {
       let docDefinition = { 
         content: [ 
           {  
-            text: 'AURAA SHOP',  
+            text: this.shop.name,  
             fontSize: 16,  
             alignment: 'center',  
             color: '#047886'  
@@ -89,6 +90,10 @@ export class BillingComponent implements AfterViewInit {
             alignment: 'center',  
             decoration: 'underline',  
             color: 'skyblue'  
+          },
+          {  
+            text: `GST : ${this.shop.gst}`,
+            alignment: 'left'  
           },
           {  
             text: 'Customer Details',  

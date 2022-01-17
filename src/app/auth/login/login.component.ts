@@ -10,7 +10,7 @@ declare var $: any;
 })
 export class LoginComponent implements OnInit {
 
-
+  loading:boolean = false;
   form: FormGroup = new FormGroup({
     username: new FormControl(''),
     password: new FormControl(''),
@@ -24,20 +24,24 @@ export class LoginComponent implements OnInit {
   submit() {
     if (this.form.valid) {
       console.log("Login Called",this.form.value.username,this.form.value.password);
+      this.loading = true;
       this.authService.login( this.form.value.username, this.form.value.password ).subscribe((resp:any)=>{
         console.log(resp);
         sessionStorage.setItem('token', resp.jwt);
         localStorage.setItem('user', JSON.stringify(resp.user));
         this.authService.getUserDetails().subscribe((resp1:any)=>{
           this.authService.setLoggedInStatus(true);
-          this.router.navigate(['dashboard']);
+          this.loading = false;
           sessionStorage.setItem('user_details', JSON.stringify(resp1));
+          this.router.navigate(['dashboard']);
         }, err =>{
           console.log(err);
+          this.loading = false;
         })
         
       }, err =>{
         console.log("Error",err);
+        this.loading = false;
         $.notify({
           icon: "notifications",
           message: "Welcome to <b>Material Dashboard</b> - a beautiful freebie for every web developer."

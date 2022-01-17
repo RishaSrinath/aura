@@ -23,13 +23,14 @@ export class NewComponent implements OnInit {
   tax: any[] = [{tax:3, split:[{name:"SGST", rate:1.5}, {name:"CGST", rate:1.5}]}];
   selected_tax:any = this.tax[0];
   tax_amount: number[] = [0,0];
-
+  shop:any;
   payment_type:string = "Cash";
   date: string = "";
 
   constructor(public dialog: MatDialog, public billService: BillingService, private router: Router) {
     let shop_details:any = JSON.parse(sessionStorage.getItem('user_details'));
     let inv_number = "AB1";
+    this.shop = shop_details[0].shop;
     if(shop_details[0].shop.last_invoice.length > 0){
       inv_number = this.getInvoiceNumber(shop_details[0].shop.last_invoice[0]);
       console.log(inv_number);
@@ -146,7 +147,7 @@ export class NewComponent implements OnInit {
       let docDefinition = { 
         content: [ 
           {  
-            text: 'AURAA SHOP',  
+            text: this.shop.name,  
             fontSize: 16,  
             alignment: 'center',  
             color: '#047886'  
@@ -158,6 +159,10 @@ export class NewComponent implements OnInit {
             alignment: 'center',  
             decoration: 'underline',  
             color: 'skyblue'  
+          },
+          {  
+            text: `GST : ${this.shop.gst}`,
+            alignment: 'left' 
           },
           {  
             text: 'Customer Details',  
