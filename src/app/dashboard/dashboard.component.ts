@@ -1,5 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import * as Chartist from 'chartist';
+import * as moment from 'moment';
+// var moment = require('moment');
+import { BillElement } from 'app/billing/billing.component';
+import { DashboardService } from './dashboard.service';
+import * as _ from 'lodash';
+// const _ = require("lodash"); 
+import { Ornament } from 'app/inventory/ornaments/ornaments.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,7 +15,24 @@ import * as Chartist from 'chartist';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  todayBills : BillElement[] = [];
+  materials : string[] = [];
+  today : string;
+  yesterday: string;
+  tomorrow: string;
+  sales: number = 0;
+  expense: number = 0;
+  unsoldOrns: Ornament[] = [];
+  materrialObj = {};
+  constructor( public dashService: DashboardService) {
+    this.today = moment().format("YYYY-MM-DD");
+    this.yesterday = moment().subtract(1,'day').format("YYYY-MM-DD");
+    this.tomorrow = moment().add(1,'day').format("YYYY-MM-DD");
+    this.getUnsoldOrnaments();
+    this.getTodayInvoices();
+  }
+
+
   startAnimationForLineChart(chart){
       let seq: any, delays: any, durations: any;
       seq = 0;
@@ -145,6 +169,40 @@ export class DashboardComponent implements OnInit {
 
       //start animation for the Emails Subscription Chart
       this.startAnimationForBarChart(websiteViewsChart);
+  }
+
+
+  getTodayInvoices(){
+    this.dashService.getInvoicesforDate(this.today, this.tomorrow).subscribe((res:any)=>{
+      this.sales = _.sumBy(res, function(o) { return o.amount; });
+      this.todayBills = res;
+    }, err =>{
+      console.log(err);
+    });
+  }
+
+  getUnsoldOrnaments(){
+    this.dashService.getOrnamentsByStatus(0).subscribe((res)=>{
+      this.unsoldOrns = res;
+      for(let orn of res){
+        if(this.materials.includes(orn.material.name)){
+          this.materrialObj[orn.material.name].count = this.materrialObj[orn.material.name].count + 1;
+          this.materrialObj[orn.material.name].quantity = orn.net_weight ? this.materrialObj[orn.material.name].quantity + orn.net_weight : this.materrialObj[orn.material.name].quantity;
+          this.materrialObj[orn.material.name].value = orn.price ? this.materrialObj[orn.material.name].value + orn.price : this.materrialObj[orn.material.name].price;
+        }
+        else{
+          this.materials.push(orn.material.name);
+          this.materrialObj[orn.material.name] = {
+            count:1,
+            quantity:orn.net_weight ? orn.net_weight:0,
+            value:orn.price ? orn.price : 0
+          }
+          console.log("Material Object", this.materrialObj);
+        }
+      }
+    }, err =>{
+      console.log(err);
+    })
   }
 
 }

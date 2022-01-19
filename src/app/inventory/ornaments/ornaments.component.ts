@@ -34,7 +34,7 @@ export class OrnamentsComponent implements AfterViewInit {
 
   loading: boolean = true;
   displayedColumns: string[] = ['code','name', 'net_wt', 'gross_wt', 'vat'];
-  displayedColumns2: string[] = ['code','name', 'net_wt', 'gross_wt', 'vat', 'price'];
+  displayedColumns2: string[] = ['code','name', 'net_wt', 'gross_wt','date', 'vat', 'price'];
   displayedColumns3: string[] = ['name','hsn', 'rate'];
   dataSource = new MatTableDataSource<Ornament>([]);
   dataSource2 = new MatTableDataSource<Ornament>([]);

@@ -8,7 +8,7 @@
                           <i class="material-icons">content_copy</i>
                       </div>
                       <p class="card-category">Today Sales</p>
-                      <h3 class="card-title"> ₹ 25,000
+                      <h3 class="card-title"> ₹ {{sales}}
                           <!-- <small>GB</small> -->
                       </h3>
                   </div>
@@ -28,7 +28,7 @@
                           <i class="material-icons">store</i>
                       </div>
                       <p class="card-category">Expense</p>
-                      <h3 class="card-title">₹ 25,000</h3>
+                      <h3 class="card-title">₹ {{expense}}</h3>
                   </div>
                   <div class="card-footer">
                       <div class="stats">
@@ -39,12 +39,12 @@
           </div>
           <div class="col-lg-3 col-md-6 col-sm-6">
               <div class="card card-stats">
-                  <div class="card-header card-header-danger card-header-icon">
+                  <div class="card-header card-header-primary card-header-icon">
                       <div class="card-icon">
                           <i class="material-icons">info_outline</i>
                       </div>
-                      <p class="card-category">Fixed Issues</p>
-                      <h3 class="card-title">75</h3>
+                      <p class="card-category">Stocks</p>
+                      <h3 class="card-title">{{unsoldOrns.length}}</h3>
                   </div>
                   <div class="card-footer">
                       <div class="stats">
@@ -59,8 +59,8 @@
                       <div class="card-icon">
                           <i class="fa fa-twitter"></i>
                       </div>
-                      <p class="card-category">Followers</p>
-                      <h3 class="card-title">+245</h3>
+                      <p class="card-category">Invoices</p>
+                      <h3 class="card-title">{{todayBills.length}}</h3>
                   </div>
                   <div class="card-footer">
                       <div class="stats">
@@ -131,22 +131,22 @@
                               <ul class="nav nav-tabs" data-tabs="tabs">
                                   <li class="nav-item">
                                       <a mat-button class="nav-link active" href="#profile" data-toggle="tab">
-                                          <i class="material-icons">bug_report</i> Bugs
+                                          <i class="material-icons">bug_report</i> Tasks
                                           <div class="ripple-container"></div>
                                       </a>
                                   </li>
                                   <li class="nav-item">
                                       <a mat-button class="nav-link" href="#messages" data-toggle="tab">
-                                          <i class="material-icons">code</i> Website
+                                          <i class="material-icons">code</i> Inventory
                                           <div class="ripple-container"></div>
                                       </a>
                                   </li>
-                                  <li class="nav-item">
+                                  <!-- <li class="nav-item">
                                       <a mat-button class="nav-link" href="#settings" data-toggle="tab">
                                           <i class="material-icons">cloud</i> Server
                                           <div class="ripple-container"></div>
                                       </a>
-                                  </li>
+                                  </li> -->
                               </ul>
                           </div>
                       </div>
@@ -167,7 +167,7 @@
                                                   </label>
                                               </div>
                                           </td>
-                                          <td>Sign contract for "What are conference organizers afraid of?"</td>
+                                          <td>Pay the due amount of ₹ 5000 for the Supplier</td>
                                           <td class="td-actions text-right">
                                               <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
                                                   <i class="material-icons">edit</i>
@@ -188,7 +188,7 @@
                                                   </label>
                                               </div>
                                           </td>
-                                          <td>Lines From Great Russian Literature? Or E-mails From My Boss?</td>
+                                          <td>Give order for new Glod ornaments</td>
                                           <td class="td-actions text-right">
                                               <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
                                                   <i class="material-icons">edit</i>
@@ -209,7 +209,7 @@
                                                   </label>
                                               </div>
                                           </td>
-                                          <td>Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit
+                                          <td>Collect the material from the maker for invoice number MI3302
                                           </td>
                                           <td class="td-actions text-right">
                                               <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
@@ -231,7 +231,7 @@
                                                   </label>
                                               </div>
                                           </td>
-                                          <td>Create 4 Invisible User Experiences you Never Knew About</td>
+                                          <td>Delivery of the materrial to the client for invoice number AB0032</td>
                                           <td class="td-actions text-right">
                                               <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
                                                   <i class="material-icons">edit</i>
@@ -245,7 +245,7 @@
                               </table>
                           </div>
                           <div class="tab-pane" id="messages">
-                              <table class="table">
+                              <!-- <table class="table">
                                   <tbody>
                                       <tr>
                                           <td>
@@ -291,9 +291,38 @@
                                           </td>
                                       </tr>
                                   </tbody>
-                              </table>
+                              </table> -->
+                              <table class="table table-hover">
+                                <thead class="text-warning">
+                                    <th>Material</th>
+                                    <th>Count</th>
+                                    <th>Quantity (g)</th>
+                                    <th>Value</th>
+                                </thead>
+                                <tbody>
+
+                                    <tr *ngFor="let st of materials;let indexOfelement=index;">
+                                        <td>{{st}}</td>
+                                        <td>{{materrialObj[st].count}}</td>
+                                        <td>{{materrialObj[st].quantity}}</td>
+                                        <td>{{materrialObj[st].value}}</td>
+                                    </tr>
+                                    <!-- <tr>
+                                        <td>Silver</td>
+                                        <td>35</td>
+                                        <td>70</td>
+                                        <td>50000</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Bronze</td>
+                                        <td>2</td>
+                                        <td>9</td>
+                                        <td>5000</td>
+                                    </tr> -->
+                                </tbody>
+                            </table>
                           </div>
-                          <div class="tab-pane" id="settings">
+                          <!-- <div class="tab-pane" id="settings">
                               <table class="table">
                                   <tbody>
                                       <tr>
@@ -362,12 +391,183 @@
                                       </tr>
                                   </tbody>
                               </table>
-                          </div>
+                          </div> -->
                       </div>
                   </div>
               </div>
           </div>
+
+
+
           <div class="col-lg-6 col-md-12">
+            <div class="card">
+                <div class="card-header card-header-tabs card-header-primary" style="background-color: gold; color: gold;">
+                    <div class="nav-tabs-navigation">
+                        <div class="nav-tabs-wrapper">
+                            <span class="nav-tabs-title">Today's Glimpse:</span>
+                            <ul class="nav nav-tabs" data-tabs="tabs">
+                                <li class="nav-item">
+                                    <a mat-button class="nav-link active" href="#invoice" data-toggle="tab">
+                                        <i class="material-icons">bug_report</i> Invoices
+                                        <div class="ripple-container"></div>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a mat-button class="nav-link" href="#stocks" data-toggle="tab">
+                                        <i class="material-icons">code</i> Stockings
+                                        <div class="ripple-container"></div>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a mat-button class="nav-link" href="#settings" data-toggle="tab">
+                                        <i class="material-icons">cloud</i> Expenses
+                                        <div class="ripple-container"></div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="invoice">
+                            <table class="table table-hover">
+                                <thead class="text-warning">
+                                    <th>Invoice no.</th>
+                                    <th>Amount</th>
+                                    <th>Items</th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let st of todayBills;let indexOfelement=index;">
+                                        <td>{{st.number}}</td>
+                                        <td>{{st.amount}}</td>
+                                        <td>{{st.items.length}}</td>
+                                    </tr>
+                                    <!-- <tr>
+                                        <td>AB0001</td>
+                                        <td>25000</td>
+                                        <td>1</td>
+                                    </tr>
+                                    <tr>
+                                        <td>AB0002</td>
+                                        <td>10000</td>
+                                        <td>2</td>
+                                    </tr>
+                                    <tr>
+                                        <td>AB0003</td>
+                                        <td>5493</td>
+                                        <td>1</td>
+                                    </tr> -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="tab-pane" id="stocks">
+                            <!-- <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" value="" checked>
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit
+                                        </td>
+                                        <td class="td-actions text-right">
+                                            <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                                <i class="material-icons">edit</i>
+                                            </button>
+                                            <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                <i class="material-icons">close</i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" value="">
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>Sign contract for "What are conference organizers afraid of?"</td>
+                                        <td class="td-actions text-right">
+                                            <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                                <i class="material-icons">edit</i>
+                                            </button>
+                                            <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                <i class="material-icons">close</i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table> -->
+                            <table class="table table-hover">
+                              <thead class="text-warning">
+                                  <th>Material</th>
+                                  <th>Count</th>
+                                  <th>Quantity (g)</th>
+                                  <th>Value</th>
+                              </thead>
+                              <tbody>
+                                  <tr>
+                                      <td>Gold</td>
+                                      <td>20</td>
+                                      <td>90</td>
+                                      <td>250000</td>
+                                  </tr>
+                                  <tr>
+                                      <td>Silver</td>
+                                      <td>35</td>
+                                      <td>70</td>
+                                      <td>50000</td>
+                                  </tr>
+                                  <tr>
+                                      <td>Bronze</td>
+                                      <td>2</td>
+                                      <td>9</td>
+                                      <td>5000</td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                        </div>
+                        <div class="tab-pane" id="settings">
+                            <table class="table table-hover">
+                                <thead class="text-warning">
+                                    <th>Category</th>
+                                    <th>Amount</th>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Tea / Coffee</td>
+                                        <td>200</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Maintainance</td>
+                                        <td>500</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Water</td>
+                                        <td>600</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+          <!-- <div class="col-lg-6 col-md-12">
               <div class="card">
                   <div class="card-header card-header-warning">
                       <h4 class="card-title">Employees Stats</h4>
@@ -410,7 +610,7 @@
                       </table>
                   </div>
               </div>
-          </div>
+          </div> -->
       </div>
   </div>
 </div>

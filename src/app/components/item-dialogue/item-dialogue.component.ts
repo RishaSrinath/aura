@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators, ValidationErrors } from '@angular/forms';
 import { ItemData } from 'app/interfaces';
 import { Material, Ornament } from 'app/interfaces';
 import {Observable} from 'rxjs';
@@ -64,16 +64,16 @@ export class ItemDialogueComponent {
       material:new FormControl(data ? data.pricing.material: '', [Validators.required]),
       code:new FormControl(data ? data.pricing.code: '', [Validators.required]),
       vat:new FormControl(data ? data.pricing.vat: '', [Validators.required]),
-      unit:new FormControl(data ? data.pricing.unit: '', [Validators.required]),
+      unit:new FormControl(data ? data.pricing.unit: 'g'),
       price:new FormControl(data ? data.pricing.price: '', [Validators.required]),
       gross_wt:new FormControl(data ? data.pricing.gross_wt: '', [Validators.required]),
       net_wt: new FormControl(data ? data.pricing.net_wt: '',[Validators.required]),
       amount: new FormControl(data ? data.pricing.amount: '', [Validators.required]),
       rate: new FormControl(data ? data.pricing.rate: '', [Validators.required]),
-      stone_rate: new FormControl(data ? data.pricing.stone_rate: 0,[Validators.required]),
-      stone_weight: new FormControl(data ? data.pricing.stone_weight: 0,[Validators.required]),
+      stone_rate: new FormControl(data ? data.pricing.stone_rate: 0, [Validators.required]),
+      stone_weight: new FormControl(data ? data.pricing.stone_weight: 0, [Validators.required]),
       stone_amount: new FormControl(data ? data.pricing.stone_amount: 0, [Validators.required]),
-      vat_price: new FormControl(data ? data.pricing.vat_price: '',[Validators.required])
+      vat_price: new FormControl(data ? data.pricing.vat_price: '', [Validators.required])
     });
 
     this.filteredOptions = this.itemForm.controls.code.valueChanges.pipe(
@@ -236,9 +236,19 @@ export class ItemDialogueComponent {
   }
 
   public confirmDialog(): void {
-    // if(this.itemForm.valid){
+    if(this.itemForm.valid){
       this.dialogRef.close({ pricing:this.itemForm.value, item:this.ornmanent, index:this.index});
-    // }
+    }
+    else{
+      Object.keys(this.itemForm.controls).forEach(key => {
+        const controlErrors: ValidationErrors = this.itemForm.get(key).errors;
+        if (controlErrors != null) {
+          Object.keys(controlErrors).forEach(keyError => {
+           console.log('Key control: ' + key + ', keyError: ' + keyError + ', err value: ', controlErrors[keyError]);
+          });
+        }
+      });
+    }
   }
 
 }
