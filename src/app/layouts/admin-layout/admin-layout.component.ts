@@ -69,6 +69,14 @@ export class AdminLayoutComponent implements OnInit {
 
       }
 
+      if($sidebar.length !== 0){
+        $sidebar.attr('data-color', "orange");
+      }
+
+        if($sidebar_responsive.length != 0){
+            $sidebar_responsive.attr('data-color',"orange");
+        }
+
       $('.fixed-plugin a').click(function(event){
         // Alex if we click on switch, stop propagation of the event, so the dropdown will not be hide, otherwise we set the  section active
           if($(this).hasClass('switch-trigger')){
